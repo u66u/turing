@@ -80,11 +80,11 @@ impl TuringMachine {
                 }
             },
             None => {
-                // Default behavior when rule does not exist
+                
                 self.state = State::Halt;
             }
         }
-        println!("Current state: {:?}, Current symbol: {:?}", self.state, self.tape[self.position]); // print the current state and symbol
+        println!("Current state: {:?}, Current symbol: {:?}", self.state, self.tape[self.position]); 
     }
     
     
@@ -93,7 +93,7 @@ impl TuringMachine {
         while self.state != State::Halt {
             self.step();
         }
-        println!("The Turing machine has halted."); // print when the Turing machine has halted
+        println!("The Turing machine has halted."); 
     }
     
 }
@@ -153,8 +153,7 @@ impl FromStr for Move {
 fn main() {
     let mut rules = Rules::new();
 
-    // Read from user input or a file
-    let input = io::stdin();
+    
     let file = File::open("rules.txt").unwrap();
     let reader = io::BufReader::new(file);
 
@@ -181,16 +180,16 @@ fn main() {
         );
     }
 
-    // Print the rule table
+    
     for ((state, symbol), rule) in &rules {
         println!("State: {:?}, Symbol: {:?} => Write: {:?}, Move: {:?}, Next State: {:?}", state, symbol, rule.write, rule.move_, rule.next_state);
     }
 
-    // Initialize the Turing machine with an initial state and tape
+    
     let initial_tape = vec![Symbol::Zero, Symbol::One, Symbol::Zero, Symbol::Zero];
     let mut machine = TuringMachine::new(rules, State::A, initial_tape);
 
-    // Run the Turing machine
+    
     machine.run();
 
     
